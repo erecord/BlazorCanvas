@@ -1,0 +1,13 @@
+version: "3.4"
+
+services:
+  backend:
+    image: blazor_canvas
+    container_name: blazor_canvas
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/source
