@@ -53,10 +53,21 @@
 
     private async ValueTask Update(int screenWidth, int screenHeight)
     {
-        if (_spritePosition.X + _sprite.Size.Width >= screenWidth || _spritePosition.X < 0)
+        var spriteRightFaceXPosition = _spritePosition.X + _sprite.Size.Width;
+        var spriteLeftFaceXPosition = _spritePosition.X;
+        var spriteTopFaceYPosition = _spritePosition.Y +  _sprite.Size.Height;
+        var spriteBottomFaceYPosition = _spritePosition.Y;
+
+        var spriteTouchingRightWall = spriteRightFaceXPosition >= screenWidth; 
+        var spriteTouchingLeftWall = spriteLeftFaceXPosition < 0;
+
+        var spriteTouchingTopWall = spriteTopFaceYPosition >= screenHeight;
+        var spriteTouchingBottomWall =_spritePosition.Y < 0;
+ 
+        if ( spriteTouchingRightWall ||  spriteTouchingLeftWall )
             _spriteDirection.X = -_spriteDirection.X;
 
-        if (_spritePosition.Y +  _sprite.Size.Height >= screenHeight || _spritePosition.Y < 0)
+        if ( spriteTouchingTopWall || spriteTouchingBottomWall )
             _spriteDirection.Y = -_spriteDirection.Y;
 
         _spritePosition.X += (int)(_spriteDirection.X * _spriteSpeed * _gameTime.ElapsedTime);
