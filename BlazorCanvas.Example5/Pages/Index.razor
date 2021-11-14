@@ -50,12 +50,17 @@
     {
         InputSystem.Instance.MouseCoords.X = mouseX;
         InputSystem.Instance.MouseCoords.Y = mouseY;
+
+        Console.WriteLine(InputSystem.Instance.MouseCoords);
     }
 
     [JSInvokable]
     public async ValueTask OnMouseDown(MouseButtons button)
     {
         InputSystem.Instance.SetButtonState(button, ButtonStates.Down);
+
+        Console.WriteLine($"Left: {InputSystem.Instance.GetButtonState(MouseButtons.Left)}");
+        Console.WriteLine($"Middle: {InputSystem.Instance.GetButtonState(MouseButtons.Middle)}");
     }
 
     [JSInvokable]
