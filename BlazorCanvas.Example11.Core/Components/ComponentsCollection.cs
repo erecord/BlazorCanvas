@@ -29,13 +29,25 @@ namespace BlazorCanvas.Example11.Core.Components
         public TC Add<TC>() where TC : class, IComponent
         {
             var type = typeof(TC);
-            if (!_items.ContainsKey(type))
+            if (_items.ContainsKey(type))
             {
-                var component = ComponentsFactory.Instance.Create<TC>(_owner);
-                _items.Add(type, component);
+                Remove<TC>();
             }
 
+            var component = ComponentsFactory.Instance.Create<TC>(_owner);
+            _items.Add(type, component);
+
+
             return _items[type] as TC;
+        }
+
+        private void Remove<TC>() where TC : class, IComponent
+        {
+            var type = typeof(TC);
+            if (_items.ContainsKey(type))
+            {
+                _items.Remove(type);
+            }
         }
 
         public T Get<T>() where T : class, IComponent
