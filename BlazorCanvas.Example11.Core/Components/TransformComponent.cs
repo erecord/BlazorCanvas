@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Threading.Tasks;
 using BlazorCanvas.Example11.Core.Utils;
 
@@ -32,10 +33,10 @@ namespace BlazorCanvas.Example11.Core.Components
             Local.Position.Y = (float)(ty * canvasHeight / 2 + canvasHeight / 2);
         }
 
-        public void SetPosition(float x, float y)
+        public void SetPosition(Point position)
         {
-            Local.Position.X = x;
-            Local.Position.Y = y;
+            Local.Position.X = position.X;
+            Local.Position.Y = position.Y;
         }
 
         public Transform Local => _local;

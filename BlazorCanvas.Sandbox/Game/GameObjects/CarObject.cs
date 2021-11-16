@@ -81,10 +81,10 @@ public class CarObject : GameObject
         return this;
     }
 
-    public CarObject SetPosition(float x, float y)
+    public CarObject SetPosition(Point position)
     {
         var transformComponent = Components.Get<TransformComponent>();
-        transformComponent.SetPosition(x, y);
+        transformComponent.SetPosition(position);
         return this;
     }
 }
