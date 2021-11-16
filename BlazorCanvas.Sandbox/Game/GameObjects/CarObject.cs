@@ -1,3 +1,4 @@
+using System.Drawing;
 using BlazorCanvas.Example11.Core;
 using BlazorCanvas.Example11.Core.Assets;
 using BlazorCanvas.Example11.Core.Components;
@@ -14,10 +15,21 @@ public class CarObject : GameObject
         Components.Add<TransformComponent>();
         Components.Add<BoundingBoxComponent>();
         Components.Add<SpriteRenderComponent>();
-        Components.Add<CarBrain>();
 
         SetEastboundAsset();
-        SetPosition(100, 700);
+    }
+
+    public CarObject SetManualCarBrain()
+    {
+        Components.Add<CarBrain>();
+        return this;
+    }
+
+    public CarObject SetAutomaticCarBrain(CarBrainAutomatic.CarStates initialState)
+    {
+        var carBrain = Components.Add<CarBrainAutomatic>();
+        carBrain.CarState = initialState;
+        return this;
     }
 
     public CarObject SetNorthboundAsset()

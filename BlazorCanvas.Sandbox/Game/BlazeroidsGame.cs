@@ -30,8 +30,8 @@ namespace BlazorCanvas.Example11.Game
             var sceneGraph = new SceneGraph(this);
             this.AddService(sceneGraph);
 
-            var player = BuildPlayer();
-            sceneGraph.Root.AddChild(player);
+            // var player = BuildPlayer();
+            // sceneGraph.Root.AddChild(player);
 
             // for (var i = 0; i != 6; ++i)
             // AddAsteroid(sceneGraph);
@@ -71,9 +71,26 @@ namespace BlazorCanvas.Example11.Game
 
         private void AddCar(SceneGraph sceneGraph)
         {
-            var car = CarFactory.CreateCar(_assetsResolver);
-            // .SetPosition(100, _canvas.Height - 200);
+            var car = CarFactory.CreateCarGoingEast(_assetsResolver)
+            .SetPosition(new Point(100, (int)_canvas.Height - 200));
             sceneGraph.Root.AddChild(car);
+
+            var car2 = CarFactory.CreateCarGoingWest(_assetsResolver)
+            .SetPosition(new Point((int)_canvas.Width - 100, (int)_canvas.Height - 200))
+            .SetWestboundAsset();
+            sceneGraph.Root.AddChild(car2);
+
+            Task.Run(async () =>
+            {
+                var autoCarBrain = car2.Components.Get<CarBrainAutomatic>();
+                await Task.Delay(500);
+
+                autoCarBrain.CarState = CarBrainAutomatic.CarStates.NorthWest;
+                car2.SetNorthWestAsset();
+                await Task.Delay(1000);
+                autoCarBrain.CarState = CarBrainAutomatic.CarStates.Westbound;
+                car2.SetWestboundAsset();
+            });
         }
 
         private void AddAsteroid(SceneGraph sceneGraph)
