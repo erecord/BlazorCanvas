@@ -44,6 +44,30 @@ public class CarObject : GameObject
         return this;
     }
 
+    public CarObject SetNorthEastAsset()
+    {
+        SetAsset("assets/sedanSports_NE.png");
+        return this;
+    }
+
+    public CarObject SetNorthWestAsset()
+    {
+        SetAsset("assets/sedanSports_NW.png");
+        return this;
+    }
+
+    public CarObject SetSouthEastAsset()
+    {
+        SetAsset("assets/sedanSports_SE.png");
+        return this;
+    }
+
+    public CarObject SetSouthWestAsset()
+    {
+        SetAsset("assets/sedanSports_SW.png");
+        return this;
+    }
+
 
     private CarObject SetAsset(string assetPath)
     {

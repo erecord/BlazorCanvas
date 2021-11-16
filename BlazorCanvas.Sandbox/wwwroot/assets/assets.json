@@ -18,5 +18,21 @@
   {
     "path": "assets/sedanSports_W.png",
     "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_NE.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_NW.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_SE.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_SW.png",
+    "type": "sprite"
   }
 ]

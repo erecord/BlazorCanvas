@@ -9,16 +9,9 @@ namespace BlazorCanvas.Example11.Game.Components
     {
         private TransformComponent Transform => Parent.Components.Get<TransformComponent>();
         private BoundingBoxComponent BoundingBox => Parent.Components.Get<BoundingBoxComponent>();
-        private InputService InputService;
-
-        // private CarObject GetOwner()
-        // {
-        //     return Owner as CarObject;
-        // }
-
         private CarObject Parent => this.Owner as CarObject;
 
-        public float _speed = 0.1000f;
+        public float _speed = 0.6000f;
         private bool _carStopped = false;
 
         private Timer _timer = new Timer();
@@ -27,72 +20,119 @@ namespace BlazorCanvas.Example11.Game.Components
         {
             BoundingBox.OnCollision += (sender, collidedWith) =>
             {
-                //     // check if we're colliding with another car
-                //     // if (!collidedWith.Owner.Components.TryGet<CarBrain>(out var _))
-                //     // this.Owner.Enabled = false;
+                // check if we're colliding with another car
+                if (!collidedWith.Owner.Components.TryGet<CarBrain>(out var _))
+                    this.Owner.Enabled = false;
             };
-
-            _timer.Interval = 5000;
-            _timer.Elapsed += onElapsed;
-            // _timer.Start();
         }
 
-        void onElapsed(object sender, ElapsedEventArgs e)
-        {
-            _carStopped = !_carStopped;
-        }
 
         public override ValueTask Update(GameContext game)
         {
-            InputService = game.GetService<InputService>();
+            var inputService = game.GetService<InputService>();
 
-            // if (!_carStopped)
-            // {
-            //     TravelRight(game);
-            // }
+            if (inputService.GetKeyState(Keys.Up).State == ButtonState.States.Down)
+            {
+                if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
+                {
 
-            if (InputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
-            {
-                TravelRight(game);
+                    TravelNorthEast(game);
+                    Parent.SetNorthEastAsset();
+                }
+                else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
+                {
+
+                    TravelNorthWest(game);
+                    Parent.SetNorthWestAsset();
+                }
+                else
+                {
+
+                    TravelNorth(game);
+                    Parent.SetNorthboundAsset();
+                }
             }
-            else if (InputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
+
+            else if (inputService.GetKeyState(Keys.Down).State == ButtonState.States.Down)
             {
-                TravelLeft(game);
+                if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
+                {
+
+                    TravelSouthEast(game);
+                    Parent.SetSouthEastAsset();
+                }
+                else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
+                {
+
+                    TravelSouthWest(game);
+                    Parent.SetSouthWestAsset();
+                }
+                else
+                {
+
+                    TravelSouth(game);
+                    Parent.SetSouthboundAsset();
+                }
             }
-            else if (InputService.GetKeyState(Keys.Up).State == ButtonState.States.Down)
+
+            else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
             {
-                TravelUp(game);
+                TravelWest(game);
+                Parent.SetWestboundAsset();
             }
-            else if (InputService.GetKeyState(Keys.Down).State == ButtonState.States.Down)
+
+            else if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
             {
-                TravelDown(game);
+                TravelEast(game);
+                Parent.SetEastboundAsset();
             }
+
 
             return new ValueTask();
         }
 
-        private void TravelRight(GameContext game)
+        private void TravelEast(GameContext game)
         {
             Transform.Local.Position.X += _speed * game.GameTime.ElapsedMilliseconds;
-            Parent.SetEastboundAsset();
         }
 
-        private void TravelLeft(GameContext game)
+        private void TravelWest(GameContext game)
         {
             Transform.Local.Position.X -= _speed * game.GameTime.ElapsedMilliseconds;
-            Parent.SetWestboundAsset();
         }
 
-        private void TravelUp(GameContext game)
+        private void TravelNorth(GameContext game)
         {
             Transform.Local.Position.Y -= _speed * game.GameTime.ElapsedMilliseconds;
-            Parent.SetNorthboundAsset();
         }
 
-        private void TravelDown(GameContext game)
+        private void TravelSouth(GameContext game)
         {
             Transform.Local.Position.Y += _speed * game.GameTime.ElapsedMilliseconds;
-            Parent.SetSouthboundAsset();
+        }
+
+        private void TravelNorthEast(GameContext game)
+        {
+            TravelNorth(game);
+            TravelEast(game);
+        }
+
+        private void TravelNorthWest(GameContext game)
+        {
+            TravelNorth(game);
+            TravelWest(game);
+        }
+
+        private void TravelSouthEast(GameContext game)
+        {
+            TravelSouth(game);
+            TravelEast(game);
+        }
+
+        private void TravelSouthWest(GameContext game)
+        {
+            TravelSouth(game);
+            TravelWest(game);
         }
 
     }
