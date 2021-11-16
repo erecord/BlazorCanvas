@@ -20,7 +20,7 @@ namespace BlazorCanvas.Example11.Core.Components
         {
             var ctor = GetCtor<TC>();
 
-            return ctor.Invoke(new[] {owner}) as TC;
+            return ctor.Invoke(new[] { owner }) as TC;
         }
 
         private ConstructorInfo GetCtor<TC>() where TC : class, IComponent

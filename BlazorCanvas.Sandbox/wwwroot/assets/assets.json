@@ -1,0 +1,22 @@
+﻿[
+  {
+    "path": "assets/sheet.json",
+    "type": "spritesheet"
+  },
+  {
+    "path": "assets/sedanSports_N.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_E.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_S.png",
+    "type": "sprite"
+  },
+  {
+    "path": "assets/sedanSports_W.png",
+    "type": "sprite"
+  }
+]

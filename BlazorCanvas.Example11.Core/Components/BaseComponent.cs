@@ -9,11 +9,12 @@ namespace BlazorCanvas.Example11.Core.Components
         {
             this.Owner = owner ?? throw new ArgumentNullException(nameof(owner));
         }
-        
+
         //TODO: add an OnStart method
 
-        public virtual async ValueTask Update(GameContext game)
+        public virtual ValueTask Update(GameContext game)
         {
+            return new ValueTask();
         }
 
         public GameObject Owner { get; }

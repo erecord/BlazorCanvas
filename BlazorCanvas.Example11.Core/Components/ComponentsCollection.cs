@@ -34,7 +34,7 @@ namespace BlazorCanvas.Example11.Core.Components
                 var component = ComponentsFactory.Instance.Create<TC>(_owner);
                 _items.Add(type, component);
             }
-            
+
             return _items[type] as TC;
         }
 
