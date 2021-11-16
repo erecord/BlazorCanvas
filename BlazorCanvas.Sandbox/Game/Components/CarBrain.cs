@@ -11,12 +11,12 @@ namespace BlazorCanvas.Example11.Game.Components
         private BoundingBoxComponent BoundingBox => Parent.Components.Get<BoundingBoxComponent>();
         private CarObject Parent => this.Owner as CarObject;
 
-        public float _speed = 0.6000f;
+        public float _speed = 0.4500f;
         private bool _carStopped = false;
 
         private Timer _timer = new Timer();
 
-        private CarBrain(GameObject owner) : base(owner)
+        public CarBrain(GameObject owner) : base(owner)
         {
             BoundingBox.OnCollision += (sender, collidedWith) =>
             {
@@ -91,45 +91,45 @@ namespace BlazorCanvas.Example11.Game.Components
             return new ValueTask();
         }
 
-        private void TravelEast(GameContext game)
+        protected void TravelEast(GameContext game)
         {
             Transform.Local.Position.X += _speed * game.GameTime.ElapsedMilliseconds;
         }
 
-        private void TravelWest(GameContext game)
+        protected void TravelWest(GameContext game)
         {
             Transform.Local.Position.X -= _speed * game.GameTime.ElapsedMilliseconds;
         }
 
-        private void TravelNorth(GameContext game)
+        protected void TravelNorth(GameContext game)
         {
             Transform.Local.Position.Y -= _speed * game.GameTime.ElapsedMilliseconds;
         }
 
-        private void TravelSouth(GameContext game)
+        protected void TravelSouth(GameContext game)
         {
             Transform.Local.Position.Y += _speed * game.GameTime.ElapsedMilliseconds;
         }
 
-        private void TravelNorthEast(GameContext game)
+        protected void TravelNorthEast(GameContext game)
         {
             TravelNorth(game);
             TravelEast(game);
         }
 
-        private void TravelNorthWest(GameContext game)
+        protected void TravelNorthWest(GameContext game)
         {
             TravelNorth(game);
             TravelWest(game);
         }
 
-        private void TravelSouthEast(GameContext game)
+        protected void TravelSouthEast(GameContext game)
         {
             TravelSouth(game);
             TravelEast(game);
         }
 
-        private void TravelSouthWest(GameContext game)
+        protected void TravelSouthWest(GameContext game)
         {
             TravelSouth(game);
             TravelWest(game);
