@@ -13,7 +13,7 @@ namespace BlazorCanvas.Example11.Game.Components
         private readonly BoundingBoxComponent _boundingBox;
 
         private readonly Size _halfSize;
-        
+
         private float _enginePower = 1000f;
         private float _rotationSpeed = 10f;
 
@@ -31,10 +31,10 @@ namespace BlazorCanvas.Example11.Game.Components
             };
         }
 
-        public override async ValueTask Update(GameContext game)
+        public override ValueTask Update(GameContext game)
         {
             var inputService = game.GetService<InputService>();
-            HandleMovement(game, inputService);
+            return new ValueTask();
         }
 
         private void HandleMovement(GameContext game, InputService inputService)
