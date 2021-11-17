@@ -29,5 +29,10 @@ namespace BlazorCanvas.Core.Assets
         }
 
         public TA Get<TA>(string path) where TA : class, IAsset => _assets[path] as TA;
+
+        public ValueTask Step()
+        {
+            return new ValueTask();
+        }
     }
 }
