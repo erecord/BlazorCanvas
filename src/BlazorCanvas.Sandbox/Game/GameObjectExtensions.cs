@@ -1,7 +1,3 @@
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Assets;
-using BlazorCanvas.Example11.Core.Components;
-
 public static class GameObjectExtensions
 {
     // public static GameObject SetAsset(this GameObject gameObject, ref IAssetsResolver assetsResolver, string assetPath)

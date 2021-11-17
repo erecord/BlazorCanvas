@@ -1,9 +1,9 @@
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Components;
-using BlazorCanvas.Example11.Core.Utils;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Components;
+using BlazorCanvas.Core.Utils;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
@@ -22,24 +22,25 @@ namespace BlazorCanvas.Example11.Game.Components
             _transform = owner.Components.Get<TransformComponent>();
         }
 
-        public override async ValueTask Update(GameContext game)
+        public override ValueTask Update(GameContext game)
         {
             var dt = (float)game.GameTime.ElapsedMilliseconds / 1000;
 
             _rotationVelocity += RotationSpeed * dt;
-            _rotationVelocity *= (1f - dt * RotationDrag);
+            _rotationVelocity *= 1f - dt * RotationDrag;
             _transform.Local.Rotation += _rotationVelocity * dt;
-            
+
             var dir = new Vector2(MathF.Sin(_transform.Local.Rotation), -MathF.Cos(_transform.Local.Rotation));
-            
-            var traction = dir * this.Thrust;
-          
+
+            var traction = dir * Thrust;
+
             var acceleration = traction / Mass;
             _velocity += acceleration * dt;
-            _velocity *= (1 - dt * Drag);
-            _velocity = Vector2Utils.ClampMagnitude(ref _velocity, MaxSpeed); 
+            _velocity *= 1 - dt * Drag;
+            _velocity = Vector2Utils.ClampMagnitude(ref _velocity, MaxSpeed);
 
             _transform.Local.Position += _velocity * dt;
+            return new ValueTask();
         }
 
         public void Reset()
@@ -49,13 +50,13 @@ namespace BlazorCanvas.Example11.Game.Components
             _rotationVelocity = 0;
             _velocity = Vector2.Zero;
         }
-        
+
         #region Properties
 
         public float Thrust = 0f;
         public float MaxSpeed = 1f;
         public float Drag = 5f;
-        
+
         public float RotationSpeed = 0f;
         public float RotationDrag = 5f;
 

@@ -1,11 +1,12 @@
 using System.Drawing;
 using System.Threading.Tasks;
 using Blazor.Extensions;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Assets;
-using BlazorCanvas.Example11.Core.Components;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Assets;
+using BlazorCanvas.Core.Components;
 using BlazorCanvas.Example11.Game.Components;
-using BlazorCanvas.Example11.Core.Utils;
+using BlazorCanvas.Core.Utils;
+using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game
 {
@@ -85,10 +86,10 @@ namespace BlazorCanvas.Example11.Game
                 var autoCarBrain = car2.Components.Get<CarBrainAutomatic>();
                 await Task.Delay(500);
 
-                autoCarBrain.CarState = CarBrainAutomatic.CarStates.NorthWest;
+                autoCarBrain.CarState = CarStates.NorthWest;
                 car2.SetNorthWestAsset();
                 await Task.Delay(1000);
-                autoCarBrain.CarState = CarBrainAutomatic.CarStates.Westbound;
+                autoCarBrain.CarState = CarStates.Westbound;
                 car2.SetWestboundAsset();
             });
         }

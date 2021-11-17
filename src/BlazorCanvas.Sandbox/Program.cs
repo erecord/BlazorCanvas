@@ -1,8 +1,8 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BlazorCanvas.Example11.Core.Assets;
-using BlazorCanvas.Example11.Core.Assets.Loaders;
+using BlazorCanvas.Core.Assets;
+using BlazorCanvas.Core.Assets.Loaders;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +22,7 @@ namespace BlazorCanvas.Example11
             builder.Services.AddSingleton<IAssetLoaderFactory>(ctx =>
             {
                 var factory = new AssetLoaderFactory();
-                
+
                 factory.Register(ctx.GetRequiredService<IAssetLoader<Sprite>>());
                 factory.Register(ctx.GetRequiredService<IAssetLoader<SpriteSheet>>());
 

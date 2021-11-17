@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Blazor.Extensions;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Components;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Components;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
@@ -9,23 +9,24 @@ namespace BlazorCanvas.Example11.Game.Components
     {
         private readonly MovingBody _movingBody;
         private readonly TransformComponent _transformComponent;
-        
+
         public BulletBrain(GameObject owner) : base(owner)
         {
             _movingBody = owner.Components.Get<MovingBody>();
             _transformComponent = owner.Components.Get<TransformComponent>();
         }
-        
-        public override async ValueTask Update(GameContext game)
+
+        public override ValueTask Update(GameContext game)
         {
-            _movingBody.Thrust = this.Speed;
+            _movingBody.Thrust = Speed;
 
             var isOutScreen = _transformComponent.World.Position.X < 0 ||
                               _transformComponent.World.Position.Y < 0 ||
-                              _transformComponent.World.Position.X > this.Canvas.Width ||
-                              _transformComponent.World.Position.Y > this.Canvas.Height;
+                              _transformComponent.World.Position.X > Canvas.Width ||
+                              _transformComponent.World.Position.Y > Canvas.Height;
             if (isOutScreen)
-                this.Owner.Enabled = false; 
+                Owner.Enabled = false;
+            return new ValueTask();
         }
 
         public float Speed { get; set; }

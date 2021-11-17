@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Components;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Components;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
@@ -12,13 +12,13 @@ namespace BlazorCanvas.Example11.Game.Components
         public float _speed = 0.0025f;
 
         private AsteroidBrain(GameObject owner) : base(owner)
-        {   
+        {
             _transform = owner.Components.Get<TransformComponent>();
             _boundingBox = owner.Components.Get<BoundingBoxComponent>();
             _boundingBox.OnCollision += (sender, collidedWith) =>
             {
                 // check if we're colliding with another asteroid
-                if(!collidedWith.Owner.Components.TryGet<AsteroidBrain>(out var _))
+                if (!collidedWith.Owner.Components.TryGet<AsteroidBrain>(out var _))
                     this.Owner.Enabled = false;
             };
         }

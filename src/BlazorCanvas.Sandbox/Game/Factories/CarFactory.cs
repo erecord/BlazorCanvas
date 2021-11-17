@@ -1,11 +1,12 @@
-using BlazorCanvas.Example11.Core.Assets;
+using BlazorCanvas.Core.Assets;
+using BlazorCanvas.Sandbox.Core;
 
 static class CarFactory
 {
     static public CarObject CreateCar(IAssetsResolver assetsResolver) => new CarObject(assetsResolver).SetManualCarBrain();
     static public CarObject CreateCarGoingEast(IAssetsResolver assetsResolver)
-    => new CarObject(assetsResolver).SetAutomaticCarBrain(BlazorCanvas.Example11.Game.Components.CarBrainAutomatic.CarStates.Eastbound);
+    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStates.Eastbound);
 
     static public CarObject CreateCarGoingWest(IAssetsResolver assetsResolver)
-    => new CarObject(assetsResolver).SetAutomaticCarBrain(BlazorCanvas.Example11.Game.Components.CarBrainAutomatic.CarStates.Westbound);
+    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStates.Westbound);
 }

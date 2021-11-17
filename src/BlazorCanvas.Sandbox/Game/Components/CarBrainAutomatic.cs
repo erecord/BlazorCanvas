@@ -1,19 +1,12 @@
 using System.Threading.Tasks;
-using BlazorCanvas.Example11.Core;
+using BlazorCanvas.Core;
+using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
 
     public class CarBrainAutomatic : CarBrain
     {
-        // TODO: Move CarStates into core library
-        public enum CarStates
-        {
-            Northbound,
-            Eastbound,
-            Westbound,
-            NorthWest
-        }
 
         public CarStates CarState { get; set; }
         public CarBrainAutomatic(GameObject owner) : base(owner)

@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlazorCanvas.Example11.Core\BlazorCanvas.Example11.Core.csproj" />
+    <ProjectReference Include="..\BlazorCanvas.Core\BlazorCanvas.Core.csproj" />
     <ProjectReference Include="..\BlazorCanvas.Sandbox.Core\BlazorCanvas.Sandbox.Core.csproj" />
   </ItemGroup>
 

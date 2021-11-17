@@ -1,8 +1,9 @@
 using System.Drawing;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Assets;
-using BlazorCanvas.Example11.Core.Components;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Assets;
+using BlazorCanvas.Core.Components;
 using BlazorCanvas.Example11.Game.Components;
+using BlazorCanvas.Sandbox.Core;
 
 public class CarObject : GameObject
 {
@@ -25,7 +26,7 @@ public class CarObject : GameObject
         return this;
     }
 
-    public CarObject SetAutomaticCarBrain(CarBrainAutomatic.CarStates initialState)
+    public CarObject SetAutomaticCarBrain(CarStates initialState)
     {
         var carBrain = Components.Add<CarBrainAutomatic>();
         carBrain.CarState = initialState;

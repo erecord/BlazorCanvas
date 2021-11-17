@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using System.Timers;
-using BlazorCanvas.Example11.Core;
-using BlazorCanvas.Example11.Core.Components;
+using BlazorCanvas.Core;
+using BlazorCanvas.Core.Components;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
