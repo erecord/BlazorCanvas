@@ -2,4 +2,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
-CMD tail -f /dev/null
+CMD dotnet watch run
+# CMD tail -f /dev/null
