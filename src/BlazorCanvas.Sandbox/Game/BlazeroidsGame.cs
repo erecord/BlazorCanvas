@@ -86,10 +86,10 @@ namespace BlazorCanvas.Example11.Game
                 var autoCarBrain = car2.Components.Get<CarBrainAutomatic>();
                 await Task.Delay(500);
 
-                autoCarBrain.CarState = CarStates.NorthWest;
+                autoCarBrain.CarState = CarStateEnum.NorthWest;
                 car2.SetNorthWestAsset();
                 await Task.Delay(1000);
-                autoCarBrain.CarState = CarStates.Westbound;
+                autoCarBrain.CarState = CarStateEnum.Westbound;
                 car2.SetWestboundAsset();
             });
         }

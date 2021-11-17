@@ -5,8 +5,8 @@ static class CarFactory
 {
     static public CarObject CreateCar(IAssetsResolver assetsResolver) => new CarObject(assetsResolver).SetManualCarBrain();
     static public CarObject CreateCarGoingEast(IAssetsResolver assetsResolver)
-    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStates.Eastbound);
+    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStateEnum.Eastbound);
 
     static public CarObject CreateCarGoingWest(IAssetsResolver assetsResolver)
-    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStates.Westbound);
+    => new CarObject(assetsResolver).SetAutomaticCarBrain(CarStateEnum.Westbound);
 }
