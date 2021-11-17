@@ -24,6 +24,7 @@ namespace BlazorCanvas.Example11.Game
         protected override async ValueTask Init()
         {
             this.AddService(new InputService());
+            this.AddService(_assetsResolver);
 
             var collisionService = new CollisionService(this, new Size(64, 64));
             this.AddService(collisionService);
@@ -72,25 +73,22 @@ namespace BlazorCanvas.Example11.Game
 
         private void AddCar(SceneGraph sceneGraph)
         {
-            var car = CarFactory.CreateCarGoingEast(_assetsResolver)
+            var car = CarFactory.CreateCarGoingEast()
             .SetPosition(new Point(100, (int)_canvas.Height - 200));
             sceneGraph.Root.AddChild(car);
 
-            var car2 = CarFactory.CreateCarGoingWest(_assetsResolver)
-            .SetPosition(new Point((int)_canvas.Width - 100, (int)_canvas.Height - 200))
-            .SetWestboundAsset();
+            var car2 = CarFactory.CreateCarGoingWest()
+            .SetPosition(new Point((int)_canvas.Width - 100, (int)_canvas.Height - 200));
+
             sceneGraph.Root.AddChild(car2);
 
             Task.Run(async () =>
             {
-                var autoCarBrain = car2.Components.Get<CarBrainAutomatic>();
                 await Task.Delay(500);
-
-                autoCarBrain.CarState = CarStateEnum.NorthWest;
-                car2.SetNorthWestAsset();
+                car2.State = CarStateEnum.NorthWest;
                 await Task.Delay(1000);
-                autoCarBrain.CarState = CarStateEnum.Westbound;
-                car2.SetWestboundAsset();
+                car2.State = CarStateEnum.Westbound;
+                return Task.CompletedTask;
             });
         }
 

@@ -5,6 +5,10 @@ namespace BlazorCanvas.Sandbox.Core
         Northbound,
         Eastbound,
         Westbound,
-        NorthWest
+        NorthWest,
+        Southbound,
+        NorthEast,
+        SouthEast,
+        SouthWest
     }
 }

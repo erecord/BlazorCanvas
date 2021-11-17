@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
+using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
@@ -37,19 +38,19 @@ namespace BlazorCanvas.Example11.Game.Components
                 {
 
                     TravelNorthEast(game);
-                    Parent.SetNorthEastAsset();
+                    Parent.State = CarStateEnum.NorthEast;
                 }
                 else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
                 {
 
                     TravelNorthWest(game);
-                    Parent.SetNorthWestAsset();
+                    Parent.State = CarStateEnum.NorthWest;
                 }
                 else
                 {
 
                     TravelNorth(game);
-                    Parent.SetNorthboundAsset();
+                    Parent.State = CarStateEnum.Northbound;
                 }
             }
 
@@ -59,32 +60,32 @@ namespace BlazorCanvas.Example11.Game.Components
                 {
 
                     TravelSouthEast(game);
-                    Parent.SetSouthEastAsset();
+                    Parent.State = CarStateEnum.SouthEast;
                 }
                 else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
                 {
 
                     TravelSouthWest(game);
-                    Parent.SetSouthWestAsset();
+                    Parent.State = CarStateEnum.SouthWest;
                 }
                 else
                 {
 
                     TravelSouth(game);
-                    Parent.SetSouthboundAsset();
+                    Parent.State = CarStateEnum.Southbound;
                 }
             }
 
             else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
             {
                 TravelWest(game);
-                Parent.SetWestboundAsset();
+                Parent.State = CarStateEnum.Westbound;
             }
 
             else if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
             {
                 TravelEast(game);
-                Parent.SetEastboundAsset();
+                Parent.State = CarStateEnum.Eastbound;
             }
 
 

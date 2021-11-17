@@ -8,7 +8,8 @@ namespace BlazorCanvas.Example11.Game.Components
     public class CarBrainAutomatic : CarBrain
     {
 
-        public CarStateEnum CarState { get; set; }
+        private CarObject Parent => Owner as CarObject;
+
         public CarBrainAutomatic(GameObject owner) : base(owner)
         {
             _speed = 0.3000f;
@@ -16,22 +17,21 @@ namespace BlazorCanvas.Example11.Game.Components
 
         public override ValueTask Update(GameContext game)
         {
-            if (CarState == CarStateEnum.Northbound)
+            if (Parent.State == CarStateEnum.Northbound)
             {
-
                 TravelNorth(game);
             }
-            if (CarState == CarStateEnum.Eastbound)
+            if (Parent.State == CarStateEnum.Eastbound)
             {
 
                 TravelEast(game);
             }
-            if (CarState == CarStateEnum.Westbound)
+            if (Parent.State == CarStateEnum.Westbound)
             {
 
                 TravelWest(game);
             }
-            if (CarState == CarStateEnum.NorthWest)
+            if (Parent.State == CarStateEnum.NorthWest)
             {
 
                 TravelNorthWest(game);
