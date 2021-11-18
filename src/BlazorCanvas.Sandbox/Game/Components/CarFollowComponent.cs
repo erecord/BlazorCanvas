@@ -44,13 +44,13 @@ namespace BlazorCanvas.Example11.Game.Components
                 var parentIsMoreSouthWestThanTarget = parentIsMoreSouthThanTarget && parentIsMoreWestThanTarget;
                 var parentIsMoreSouthEastThanTarget = parentIsMoreSouthThanTarget && parentIsMoreEastThanTarget;
 
+                // Handle diagonals
                 if (parentIsMoreNorthWestThanTarget)
                 {
                     Parent.State = CarStateEnum.SouthEast;
                 }
                 else if (parentIsMoreNorthEastThanTarget)
                 {
-
                     Parent.State = CarStateEnum.SouthWest;
                 }
                 else if (parentIsMoreSouthWestThanTarget)
@@ -59,10 +59,10 @@ namespace BlazorCanvas.Example11.Game.Components
                 }
                 else if (parentIsMoreSouthEastThanTarget)
                 {
-
                     Parent.State = CarStateEnum.NorthWest;
                 }
 
+                // Handle straight lines if aligned on the same axis
                 if (parentIsMoreNorthThanTarget && parentIsYAlignedWithTarget)
                 {
                     Parent.State = CarStateEnum.Southbound;
