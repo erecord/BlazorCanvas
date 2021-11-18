@@ -13,9 +13,7 @@ namespace BlazorCanvas.Example11.Game.Components
         private CarObject Parent => this.Owner as CarObject;
 
         public float _speed = 0.4500f;
-        private bool _carStopped = false;
 
-        private Timer _timer = new Timer();
 
         public CarBrain(GameObject owner) : base(owner)
         {
@@ -30,64 +28,50 @@ namespace BlazorCanvas.Example11.Game.Components
 
         public override ValueTask Update(GameContext game)
         {
-            var inputService = game.GetService<InputService>();
-
-            if (inputService.GetKeyState(Keys.Up).State == ButtonState.States.Down)
+            if (!Parent.Stopped)
             {
-                if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
-                {
 
-                    TravelNorthEast(game);
-                    Parent.State = CarStateEnum.NorthEast;
-                }
-                else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
+                if (Parent.State == CarStateEnum.Northbound)
                 {
-
-                    TravelNorthWest(game);
-                    Parent.State = CarStateEnum.NorthWest;
-                }
-                else
-                {
-
                     TravelNorth(game);
-                    Parent.State = CarStateEnum.Northbound;
                 }
-            }
-
-            else if (inputService.GetKeyState(Keys.Down).State == ButtonState.States.Down)
-            {
-                if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
+                if (Parent.State == CarStateEnum.Eastbound)
                 {
 
-                    TravelSouthEast(game);
-                    Parent.State = CarStateEnum.SouthEast;
+                    TravelEast(game);
                 }
-                else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
-                {
-
-                    TravelSouthWest(game);
-                    Parent.State = CarStateEnum.SouthWest;
-                }
-                else
+                if (Parent.State == CarStateEnum.Southbound)
                 {
 
                     TravelSouth(game);
-                    Parent.State = CarStateEnum.Southbound;
                 }
-            }
+                if (Parent.State == CarStateEnum.Westbound)
+                {
 
-            else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
-            {
-                TravelWest(game);
-                Parent.State = CarStateEnum.Westbound;
-            }
+                    TravelWest(game);
+                }
+                if (Parent.State == CarStateEnum.NorthEast)
+                {
 
-            else if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
-            {
-                TravelEast(game);
-                Parent.State = CarStateEnum.Eastbound;
-            }
+                    TravelNorthEast(game);
+                }
+                if (Parent.State == CarStateEnum.NorthWest)
+                {
 
+                    TravelNorthWest(game);
+                }
+                if (Parent.State == CarStateEnum.SouthEast)
+                {
+
+                    TravelSouthEast(game);
+                }
+                if (Parent.State == CarStateEnum.SouthWest)
+                {
+
+                    TravelSouthWest(game);
+                }
+
+            }
 
             return new ValueTask();
         }
