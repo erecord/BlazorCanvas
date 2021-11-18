@@ -7,6 +7,7 @@ using BlazorCanvas.Sandbox.Core;
 public class CarObject : GameObject
 {
     public CarStateEnum State { get; set; }
+    public bool Stopped { get; set; }
 
     public CarObject()
     {
@@ -21,6 +22,7 @@ public class CarObject : GameObject
     public CarObject SetManualCarBrain()
     {
         Components.Add<CarBrain>();
+        Components.Add<CarInputController>();
         return this;
     }
 
