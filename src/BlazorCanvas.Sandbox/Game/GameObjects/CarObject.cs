@@ -24,6 +24,12 @@ public class CarObject : GameObject
         return this;
     }
 
+    public CarObject SetFollowCarBrain()
+    {
+        Components.Add<CarFollowComponent>();
+        return this;
+    }
+
     public CarObject SetAutomaticCarBrain(CarStateEnum initialState)
     {
         var carBrain = Components.Add<CarBrainAutomatic>();

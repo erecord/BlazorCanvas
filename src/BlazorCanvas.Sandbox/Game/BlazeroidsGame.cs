@@ -6,7 +6,6 @@ using BlazorCanvas.Core.Assets;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Example11.Game.Components;
 using BlazorCanvas.Core.Utils;
-using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game
 {
@@ -73,23 +72,24 @@ namespace BlazorCanvas.Example11.Game
 
         private void AddCar(SceneGraph sceneGraph)
         {
-            var car = CarFactory.CreateCarGoingEast()
+            var car = CarFactory.CreateCar()
             .SetPosition(new Point(100, (int)_canvas.Height - 200));
             sceneGraph.Root.AddChild(car);
 
-            var car2 = CarFactory.CreateCarGoingWest()
-            .SetPosition(new Point((int)_canvas.Width - 100, (int)_canvas.Height - 200));
+            var car2 = CarFactory.CreateFollowCar()
+            .SetPosition(new Point((int)_canvas.Width - 400, (int)_canvas.Height - 200));
 
+            car2.Components.Get<CarFollowComponent>().SetTarget(car);
             sceneGraph.Root.AddChild(car2);
 
-            Task.Run(async () =>
-            {
-                await Task.Delay(500);
-                car2.State = CarStateEnum.NorthWest;
-                await Task.Delay(1000);
-                car2.State = CarStateEnum.Westbound;
-                return Task.CompletedTask;
-            });
+            // Task.Run(async () =>
+            // {
+            //     await Task.Delay(500);
+            //     car2.State = CarStateEnum.NorthWest;
+            //     await Task.Delay(1000);
+            //     car2.State = CarStateEnum.Westbound;
+            //     return Task.CompletedTask;
+            // });
         }
 
         private void AddAsteroid(SceneGraph sceneGraph)
