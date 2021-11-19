@@ -80,6 +80,7 @@ namespace BlazorCanvas.Example11.Game
             .SetPosition(new Point((int)_canvas.Width - 400, (int)_canvas.Height - 200));
 
             car2.Components.Get<CarFollowComponent>().SetTarget(car);
+            // car2.Components.Get<CarFollowComponent>(); // Follow Mouse Click
             sceneGraph.Root.AddChild(car2);
 
             // Task.Run(async () =>
