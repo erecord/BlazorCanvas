@@ -69,11 +69,17 @@
 
     [JSInvokable]
     public async ValueTask OnKeyDown(int keyCode) =>
-        _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Down);
+    _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Down);
 
     [JSInvokable]
     public async ValueTask OnKeyUp(int keyCode) =>
-        _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Up);
+    _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Up);
+
+    [JSInvokable]
+    public async ValueTask OnClick(int clickX, int clickY)
+    {
+        _inputService.MouseClickPoint = new Point(clickX, clickY);
+    }
 
     public class CanvasMeta
     {
