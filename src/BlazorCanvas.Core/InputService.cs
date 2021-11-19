@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using BlazorCanvas.Core.Utils;
@@ -9,6 +11,8 @@ namespace BlazorCanvas.Core
     {
         private readonly IDictionary<MouseButtons, ButtonState> _buttonStates;
         private readonly IDictionary<Keys, ButtonState> _keyboardStates;
+
+        public Point MouseClickPoint { get; set; }
 
         public InputService()
         {
