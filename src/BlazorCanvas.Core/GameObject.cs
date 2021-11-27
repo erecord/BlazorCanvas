@@ -58,7 +58,14 @@ namespace BlazorCanvas.Core
                 return;
 
             foreach (var component in this.Components)
+            {
+                if (!component.Started)
+                {
+                    component.OnStart(game);
+                }
+
                 await component.Update(game);
+            }
 
             foreach (var child in _children)
                 await child.Update(game);
