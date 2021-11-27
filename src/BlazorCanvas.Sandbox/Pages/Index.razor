@@ -61,39 +61,38 @@
     }
 
     [JSInvokable]
-    public async ValueTask OnResize(int screenWidth, int screenHeight)
+    public void OnResize(int screenWidth, int screenHeight)
     {
         if (null == _game) return;
         _game.Display.Size = new Size(screenWidth, screenHeight);
     }
 
     [JSInvokable]
-    public async ValueTask OnKeyDown(int keyCode) =>
-    _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Down);
+    public void OnKeyDown(int keyCode) =>
 
     [JSInvokable]
-    public async ValueTask OnKeyUp(int keyCode) =>
+    public void OnKeyUp(int keyCode) =>
 
     [JSInvokable]
-    public async ValueTask OnMouseUp(int clickX, int clickY, int whichMouseButton)
+    public void OnMouseUp(int clickX, int clickY, int whichMouseButton)
     {
         InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Up);
     }
 
     [JSInvokable]
-    public async ValueTask OnMouseDown(int clickX, int clickY, int whichMouseButton)
+    public void OnMouseDown(int clickX, int clickY, int whichMouseButton)
     {
         InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Down);
     }
 
     [JSInvokable]
-    public async ValueTask OnLeftClick(int clickX, int clickY)
+    public void OnLeftClick(int clickX, int clickY)
     {
         InputService.HandleMouseLeftClick(new Vector2(clickX, clickY));
     }
 
     [JSInvokable]
-    public async ValueTask OnRightClick(int clickX, int clickY)
+    public void OnRightClick(int clickX, int clickY)
     {
         InputService.HandleMouseRightClick(new Vector2(clickX, clickY));
     }
