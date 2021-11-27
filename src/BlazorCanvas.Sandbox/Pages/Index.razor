@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @using System.Drawing
 @using Blazor.Extensions
 @using BlazorCanvas.Core
@@ -73,13 +73,33 @@
 
     [JSInvokable]
     public async ValueTask OnKeyUp(int keyCode) =>
-    _inputService.SetKeyState((Keys)keyCode, ButtonState.States.Up);
 
     [JSInvokable]
-    public async ValueTask OnClick(int clickX, int clickY)
+    public async ValueTask OnMouseUp(int clickX, int clickY, int whichMouseButton)
     {
-        _inputService.MouseClickPoint = new Point(clickX, clickY);
+        InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Up);
     }
+
+    [JSInvokable]
+    public async ValueTask OnMouseDown(int clickX, int clickY, int whichMouseButton)
+    {
+        InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Down);
+    }
+
+    [JSInvokable]
+    public async ValueTask OnLeftClick(int clickX, int clickY)
+    {
+        InputService.HandleMouseLeftClick(new Vector2(clickX, clickY));
+    }
+
+    [JSInvokable]
+    public async ValueTask OnRightClick(int clickX, int clickY)
+    {
+        InputService.HandleMouseRightClick(new Vector2(clickX, clickY));
+    }
+
+    private MouseButtons GetMouseButton(int whichMouseButton) => (MouseButtons)Enum.Parse(typeof(MouseButtons),
+    (whichMouseButton - 1).ToString());
 
     public class CanvasMeta
     {

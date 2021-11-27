@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 using BlazorCanvas.Core.Utils;
 
@@ -11,8 +11,18 @@ namespace BlazorCanvas.Core
     {
         private readonly IDictionary<MouseButtons, ButtonState> _buttonStates;
         private readonly IDictionary<Keys, ButtonState> _keyboardStates;
+        public event EventHandler<Vector2> MouseLeftClick;
+        public event EventHandler<Vector2> MouseRightClick;
 
-        public Point MouseClickPoint { get; set; }
+        public void HandleMouseLeftClick(Vector2 mousePosition)
+        {
+            MouseLeftClick?.Invoke(this, mousePosition);
+        }
+
+        public void HandleMouseRightClick(Vector2 mousePosition)
+        {
+            MouseRightClick?.Invoke(this, mousePosition);
+        }
 
         public InputService()
         {

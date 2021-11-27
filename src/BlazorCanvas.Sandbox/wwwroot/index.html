@@ -78,14 +78,6 @@
         onResize();
       };
 
-      function onClick(event) {
-        game.instance.invokeMethodAsync(
-          "OnClick",
-          event.clientX,
-          event.clientY
-        );
-      }
-
       window.initCanvas = (instance) => {
         var canvasContainer = document.getElementById("canvasContainer"),
           canvases = canvasContainer.getElementsByTagName("canvas") || [];
@@ -101,6 +93,37 @@
           window.game.canvas.onkeyup = (e) => {
             game.instance.invokeMethodAsync("OnKeyUp", e.keyCode);
           };
+          window.addEventListener("mouseup", (e) => {
+            game.instance.invokeMethodAsync(
+              "OnMouseUp",
+              e.clientX,
+              e.clientY,
+              e.which
+            );
+          });
+          window.addEventListener("mousedown", (e) => {
+            game.instance.invokeMethodAsync(
+              "OnMouseDown",
+              e.clientX,
+              e.clientY,
+              e.which
+            );
+          });
+          window.addEventListener("click", (e) => {
+            game.instance.invokeMethodAsync(
+              "OnLeftClick",
+              e.clientX,
+              e.clientY
+            );
+          });
+          window.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            game.instance.invokeMethodAsync(
+              "OnRightClick",
+              e.clientX,
+              e.clientY
+            );
+          });
           window.game.canvas.onblur = (e) => {
             window.game.canvas.focus();
           };
@@ -110,7 +133,6 @@
 
         onResize();
         window.addEventListener("resize", onResize);
-        window.addEventListener("click", onClick);
 
         window.requestAnimationFrame(gameLoop);
 
