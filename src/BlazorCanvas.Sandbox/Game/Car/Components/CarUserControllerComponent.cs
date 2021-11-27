@@ -5,11 +5,11 @@ using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
-    public class CarInputController : BaseComponent
+    public class CarUserControllerComponent : BaseComponent
     {
         private CarObject Parent => this.Owner as CarObject;
 
-        public CarInputController(GameObject owner) : base(owner)
+        public CarUserControllerComponent(GameObject owner) : base(owner)
         {
         }
 
@@ -17,7 +17,7 @@ namespace BlazorCanvas.Example11.Game.Components
         {
             var inputService = game.GetService<InputService>();
 
-            Parent.Stopped = true;
+            // Parent.Stopped = true;
 
             if (inputService.GetKeyState(Keys.Up).State == ButtonState.States.Down)
             {

@@ -1,4 +1,6 @@
+using System;
 using System.Drawing;
+using System.Numerics;
 using System.Threading.Tasks;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
@@ -7,35 +9,27 @@ using BlazorCanvas.Sandbox.Core;
 namespace BlazorCanvas.Example11.Game.Components
 {
 
-    public class CarFollowComponent : CarBrainAutomatic
+    public class TravelToTargetComponent : BaseMoveComponent
     {
-        private GameObject _gameObjectTarget;
-
         private CarObject Parent => Owner as CarObject;
         private TransformComponent ParentTransform => Parent.Components.Get<TransformComponent>();
-        private TransformComponent TargetTransform => _gameObjectTarget.Components.Get<TransformComponent>();
 
-        public CarFollowComponent(GameObject owner) : base(owner)
+        public TravelToTargetComponent(GameObject owner) : base(owner)
         {
+            _speed = 0.15f;
+            // Parent.Stopped = true;
         }
 
-        public void SetTarget(GameObject target) => _gameObjectTarget = target;
-        public void SetTarget(Point targetPoint) => TargetPoint = targetPoint;
-
-        private Point TargetPoint { get; set; } = new Point();
+        public Func<Vector2> GetTargetPositionFunc;
         public override ValueTask Update(GameContext game)
         {
-            if (_gameObjectTarget != null)
-            {
-                TargetPoint = new Point((int)TargetTransform.World.Position.X, (int)TargetTransform.World.Position.Y);
-            }
-            else
-            {
-                var inputService = game.GetService<InputService>();
-                TargetPoint = inputService.MouseClickPoint;
-            }
-            var dx = ParentTransform.World.Position.X - TargetPoint.X;
-            var dy = ParentTransform.World.Position.Y - TargetPoint.Y;
+            // if (_gameObjectTarget != null)
+            // {
+            //     TargetPoint = new Point((int)TargetTransform.World.Position.X, (int)TargetTransform.World.Position.Y);
+            // }
+
+            var dx = ParentTransform.World.Position.X - GetTargetPositionFunc?.Invoke().X;
+            var dy = ParentTransform.World.Position.Y - GetTargetPositionFunc?.Invoke().Y;
 
             var parentIsMoreEastThanTarget = dx > 0;
             var parentIsMoreWestThanTarget = dx < 0;

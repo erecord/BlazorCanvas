@@ -1,12 +1,12 @@
+using System;
 using System.Threading.Tasks;
-using System.Timers;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Sandbox.Core;
 
 namespace BlazorCanvas.Example11.Game.Components
 {
-    public class CarBrain : BaseComponent
+    public class BaseMoveComponent : BaseComponent
     {
         private TransformComponent Transform => Parent.Components.Get<TransformComponent>();
         private BoundingBoxComponent BoundingBox => Parent.Components.Get<BoundingBoxComponent>();
@@ -15,12 +15,12 @@ namespace BlazorCanvas.Example11.Game.Components
         public float _speed = 0.4500f;
 
 
-        public CarBrain(GameObject owner) : base(owner)
+        public BaseMoveComponent(GameObject owner) : base(owner)
         {
             BoundingBox.OnCollision += (sender, collidedWith) =>
             {
                 // check if we're colliding with another car
-                if (!collidedWith.Owner.Components.TryGet<CarBrain>(out var _))
+                if (!collidedWith.Owner.Components.TryGet<BaseMoveComponent>(out var _))
                     this.Owner.Enabled = false;
             };
         }

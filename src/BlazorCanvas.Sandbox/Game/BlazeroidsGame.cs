@@ -6,6 +6,8 @@ using BlazorCanvas.Core.Assets;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Example11.Game.Components;
 using BlazorCanvas.Core.Utils;
+using BlazorCanvas.Sandbox.GameObjects;
+using System.Numerics;
 
 namespace BlazorCanvas.Example11.Game
 {
@@ -36,12 +38,28 @@ namespace BlazorCanvas.Example11.Game
 
             // for (var i = 0; i != 6; ++i)
             // AddAsteroid(sceneGraph);
-            AddCar(sceneGraph);
+            var car1 = CarFactory.CreateUserControlledCar(new UserControlledCarObjectBuilder());
+            var car2 = new SystemControlledCarObjectBuilder()
+                        .SetPosition(new Vector2(_canvas.Width - 200, _canvas.Height - 200))
+                        .Build();
+            car2.SetGetTargetPositionCallback(() => car1.Position);
+
+            sceneGraph.Root.AddChild(car1);
+            sceneGraph.Root.AddChild(car2);
+
+            // var trafficLight = BuildAndAddTrafficLight(sceneGraph);
+            // var trafficLight2 = BuildAndAddTrafficLight(sceneGraph);
+
+            // await Task.Delay(1000);
+            // trafficLight.TrafficLightState = TrafficLightState.Green;
+            // await Task.Delay(3000);
+            // trafficLight2.TrafficLightState = TrafficLightState.Green;
 
             var context = await _canvas.CreateCanvas2DAsync();
             var renderService = new RenderService(this, context);
             this.AddService(renderService);
         }
+
 
         private GameObject BuildPlayer()
         {
@@ -70,27 +88,27 @@ namespace BlazorCanvas.Example11.Game
         }
 
 
-        private void AddCar(SceneGraph sceneGraph)
+        // private CarObject BuildAndAddCar(SceneGraph sceneGraph)
+        // {
+        //     var car = CarFactory.CreateCar();
+        //     sceneGraph.Root.AddChild(car);
+
+        //     return car;
+        //     // Task.Run(async () =>
+        //     // {
+        //     //     await Task.Delay(500);
+        //     //     car2.State = CarStateEnum.NorthWest;
+        //     //     await Task.Delay(1000);
+        //     //     car2.State = CarStateEnum.Westbound;
+        //     //     return Task.CompletedTask;
+        //     // });
+        // }
+
+        private TrafficLightObject BuildAndAddTrafficLight(SceneGraph sceneGraph)
         {
-            var car = CarFactory.CreateCar()
-            .SetPosition(new Point(100, (int)_canvas.Height - 200));
-            sceneGraph.Root.AddChild(car);
-
-            var car2 = CarFactory.CreateFollowCar()
-            .SetPosition(new Point((int)_canvas.Width - 400, (int)_canvas.Height - 200));
-
-            car2.Components.Get<CarFollowComponent>().SetTarget(car);
-            // car2.Components.Get<CarFollowComponent>(); // Follow Mouse Click
-            sceneGraph.Root.AddChild(car2);
-
-            // Task.Run(async () =>
-            // {
-            //     await Task.Delay(500);
-            //     car2.State = CarStateEnum.NorthWest;
-            //     await Task.Delay(1000);
-            //     car2.State = CarStateEnum.Westbound;
-            //     return Task.CompletedTask;
-            // });
+            var trafficLight = new TrafficLightObject();
+            sceneGraph.Root.AddChild(trafficLight);
+            return trafficLight;
         }
 
         private void AddAsteroid(SceneGraph sceneGraph)
