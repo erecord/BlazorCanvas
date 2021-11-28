@@ -2,6 +2,7 @@ using System.Numerics;
 using BlazorCanvas.Core.Interfaces;
 using BlazorCanvas.Sandbox.Core;
 using BlazorCanvas.Sandbox.Game.Components;
+using BlazorCanvas.Sandbox.Game.GameObjects;
 
 namespace BlazorCanvas.Sandbox.Game.Strategies
 {

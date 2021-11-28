@@ -3,7 +3,7 @@ using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Sandbox.Core;
 
-namespace BlazorCanvas.Sandbox.Game.Components
+namespace BlazorCanvas.Sandbox.Game.GameObjects
 {
     public class MoveableGameObject : GameObject
     {
