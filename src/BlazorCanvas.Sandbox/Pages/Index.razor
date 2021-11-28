@@ -1,12 +1,13 @@
-@page "/"
+﻿@page "/"
 @using System.Drawing
 @using Blazor.Extensions
 @using BlazorCanvas.Core
-@using BlazorCanvas.Core.Assets
-@using BlazorCanvas.Example11.Game
+@using System.Numerics
+@using BlazorCanvas.Sandbox.Game
 
 @inject IJSRuntime JsRuntime
-@inject IAssetsResolver AssetsResolver
+@inject SandboxGameFacade SandboxGameFacade
+
 
 <Assets Source="assets/assets.json" OnLoaded="@OnAssetsLoaded" />
 
@@ -18,7 +19,6 @@
 {
     BECanvasComponent _canvas;
     GameContext _game;
-    InputService _inputService;
 
     bool _assetsLoaded = false;
     bool _initialized = false;
@@ -44,7 +44,7 @@
         _canvas.Height = canvasMeta.Height;
         _canvas.Width = canvasMeta.Width;
 
-        _game = new BlazeroidsGame(_canvas, AssetsResolver);
+        _game = new SandboxGame(_canvas, SandboxGameFacade);
 
         // this will make sure that the viewport is correctly initialized
         await JsRuntime.InvokeAsync<object>("gameWindowResize", DotNetObjectReference.Create(this));
@@ -57,7 +57,7 @@
             return;
         await _game.Step();
 
-        _inputService ??= _game.GetService<InputService>();
+        @* SandboxGameFacade.InputService ??= _game.GetService<InputService>(); *@
     }
 
     [JSInvokable]
@@ -69,32 +69,34 @@
 
     [JSInvokable]
     public void OnKeyDown(int keyCode) =>
+    SandboxGameFacade.InputService.SetKeyState((Keys)keyCode, ButtonState.States.Down);
 
     [JSInvokable]
     public void OnKeyUp(int keyCode) =>
+    SandboxGameFacade.InputService.SetKeyState((Keys)keyCode, ButtonState.States.Up);
 
     [JSInvokable]
     public void OnMouseUp(int clickX, int clickY, int whichMouseButton)
     {
-        InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Up);
+        SandboxGameFacade.InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Up);
     }
 
     [JSInvokable]
     public void OnMouseDown(int clickX, int clickY, int whichMouseButton)
     {
-        InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Down);
+        SandboxGameFacade.InputService.SetButtonState(GetMouseButton(whichMouseButton), ButtonState.States.Down);
     }
 
     [JSInvokable]
     public void OnLeftClick(int clickX, int clickY)
     {
-        InputService.HandleMouseLeftClick(new Vector2(clickX, clickY));
+        SandboxGameFacade.InputService.HandleMouseLeftClick(new Vector2(clickX, clickY));
     }
 
     [JSInvokable]
     public void OnRightClick(int clickX, int clickY)
     {
-        InputService.HandleMouseRightClick(new Vector2(clickX, clickY));
+        SandboxGameFacade.InputService.HandleMouseRightClick(new Vector2(clickX, clickY));
     }
 
     private MouseButtons GetMouseButton(int whichMouseButton) => (MouseButtons)Enum.Parse(typeof(MouseButtons),
