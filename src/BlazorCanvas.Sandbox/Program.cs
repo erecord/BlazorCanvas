@@ -9,7 +9,7 @@ using BlazorCanvas.Sandbox.Game.Builders;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BlazorCanvas.Example11
+namespace BlazorCanvas.Sandbox
 {
     public class Program
     {
