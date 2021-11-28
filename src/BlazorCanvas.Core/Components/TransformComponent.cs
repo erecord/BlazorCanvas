@@ -1,11 +1,12 @@
 using System.Drawing;
 using System.Numerics;
 using System.Threading.Tasks;
+using BlazorCanvas.Core.Interfaces;
 using BlazorCanvas.Core.Utils;
 
 namespace BlazorCanvas.Core.Components
 {
-    public class TransformComponent : BaseComponent
+    public class TransformComponent : BaseComponent, ITransformComponent
     {
         private readonly Transform _local = Transform.Identity();
         private readonly Transform _world = Transform.Identity();
