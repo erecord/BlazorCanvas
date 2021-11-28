@@ -5,12 +5,12 @@ using BlazorCanvas.Core.Assets.Loaders;
 
 namespace BlazorCanvas.Core.Assets
 {
-    public class AssetsResolver : IAssetsResolver
+    public class AssetResolver : IAssetResolver
     {
         private readonly ConcurrentDictionary<string, IAsset> _assets;
         private readonly IAssetLoaderFactory _assetLoaderFactory;
 
-        public AssetsResolver(IAssetLoaderFactory assetLoaderFactory)
+        public AssetResolver(IAssetLoaderFactory assetLoaderFactory)
         {
             _assetLoaderFactory = assetLoaderFactory;
             _assets = new ConcurrentDictionary<string, IAsset>();
