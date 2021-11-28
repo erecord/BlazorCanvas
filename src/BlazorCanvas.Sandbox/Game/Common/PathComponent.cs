@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -11,25 +10,26 @@ namespace BlazorCanvas.Sandbox.Game.Components
 {
     public class PathComponent : BaseComponent
     {
+        // TODO - Refactor to make generic
         private CarObject CarObject => (Owner as CarObject);
+        public List<Vector2> PathPoints { get; private set; } = new List<Vector2>();
+        private TravelToTargetPositionComponent _travelToTargetPositionComponent => CarObject.Components.Get<TravelToTargetPositionComponent>();
+
         public PathComponent(GameObject owner) : base(owner)
         {
         }
 
-        public List<Vector2> PathPoints { get; private set; } = new List<Vector2>();
-
         public override void OnStart(GameContext game)
         {
-            base.OnStart(game);
-
             var inputService = game.GetService<InputService>();
             inputService.MouseLeftClick += onMouseDown;
+
+            base.OnStart(game);
         }
 
         private void onMouseDown(object sender, Vector2 mousePosition)
         {
             PathPoints.Add(mousePosition);
-            Console.WriteLine($"Path point added: {mousePosition}");
         }
 
         public override ValueTask Update(GameContext game)
@@ -38,15 +38,15 @@ namespace BlazorCanvas.Sandbox.Game.Components
             {
                 var nextPathPoint = PathPoints[0];
 
-                if (CarObject.TargetPositionCallback == null)
+
+                if (_travelToTargetPositionComponent.TargetPosition == null)
                 {
-                    CarObject.TargetPositionCallback = () => nextPathPoint;
+                    _travelToTargetPositionComponent.TargetPosition = nextPathPoint;
                 }
                 else if (isWithinDistance(CarObject.Position, nextPathPoint, 100))
                 {
-                    Console.WriteLine($"Path point reached: {nextPathPoint}");
                     PathPoints.RemoveAt(0);
-                    CarObject.TargetPositionCallback = null;
+                    _travelToTargetPositionComponent.TargetPosition = null;
                 }
 
                 bool isWithinDistance(Vector2 pointOne, Vector2 pointTwo, int distanceTolerance)
