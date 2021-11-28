@@ -2,7 +2,7 @@ using System;
 using BlazorCanvas.Core;
 using BlazorCanvas.Sandbox.Core.Enums;
 
-namespace BlazorCanvas.Sandbox.GameObjects
+namespace BlazorCanvas.Sandbox.Game.GameObjects
 {
     public class TrafficLightObject : GameObject
     {
