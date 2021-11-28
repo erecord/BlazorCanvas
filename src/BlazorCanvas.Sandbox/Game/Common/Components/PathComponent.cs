@@ -10,10 +10,9 @@ namespace BlazorCanvas.Sandbox.Game.Components
 {
     public class PathComponent : BaseComponent
     {
-        // TODO - Refactor to make generic
-        private CarObject CarObject => (Owner as CarObject);
         public List<Vector2> PathPoints { get; private set; } = new List<Vector2>();
-        private TravelToTargetPositionComponent _travelToTargetPositionComponent => CarObject.Components.Get<TravelToTargetPositionComponent>();
+        private MoveableGameObject _moveableGameObject => (Owner as MoveableGameObject);
+        private TravelToTargetPositionComponent _travelToTargetPositionComponent => _moveableGameObject.Components.Get<TravelToTargetPositionComponent>();
 
         public PathComponent(GameObject owner) : base(owner)
         {
@@ -43,7 +42,7 @@ namespace BlazorCanvas.Sandbox.Game.Components
                 {
                     _travelToTargetPositionComponent.TargetPosition = nextPathPoint;
                 }
-                else if (isWithinDistance(CarObject.Position, nextPathPoint, 100))
+                else if (isWithinDistance(_moveableGameObject.Position, nextPathPoint, 100))
                 {
                     PathPoints.RemoveAt(0);
                     _travelToTargetPositionComponent.TargetPosition = null;
@@ -60,7 +59,7 @@ namespace BlazorCanvas.Sandbox.Game.Components
             }
             else
             {
-                CarObject.CurrentDirection = DirectionState.Stopped;
+                _moveableGameObject.CurrentDirection = DirectionState.Stopped;
             }
 
             return base.Update(game);
