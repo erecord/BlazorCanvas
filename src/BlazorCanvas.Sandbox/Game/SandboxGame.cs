@@ -6,26 +6,26 @@ using BlazorCanvas.Core.Assets;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Example11.Game.Components;
 using BlazorCanvas.Core.Utils;
-using BlazorCanvas.Sandbox.GameObjects;
-using System.Numerics;
+using BlazorCanvas.Sandbox.Game.GameObjects;
+using BlazorCanvas.Sandbox.Game.Builders;
 
-namespace BlazorCanvas.Example11.Game
+namespace BlazorCanvas.Sandbox.Game
 {
-    public class BlazeroidsGame : GameContext
+    public class SandboxGame : GameContext
     {
         private readonly BECanvasComponent _canvas;
-        private readonly IAssetsResolver _assetsResolver;
+        private readonly SandboxGameFacade _sandboxGameFacade;
 
-        public BlazeroidsGame(BECanvasComponent canvas, IAssetsResolver assetsResolver)
+        public SandboxGame(BECanvasComponent canvas, SandboxGameFacade sandboxGameFacade)
         {
             _canvas = canvas;
-            _assetsResolver = assetsResolver;
+            _sandboxGameFacade = sandboxGameFacade;
         }
 
         protected override async ValueTask Init()
         {
-            this.AddService(new InputService());
-            this.AddService(_assetsResolver);
+            this.AddService(_sandboxGameFacade.InputService);
+            this.AddService(_sandboxGameFacade.AssetResolver);
 
             var collisionService = new CollisionService(this, new Size(64, 64));
             this.AddService(collisionService);
@@ -33,39 +33,18 @@ namespace BlazorCanvas.Example11.Game
             var sceneGraph = new SceneGraph(this);
             this.AddService(sceneGraph);
 
-            // var player = BuildPlayer();
-            // sceneGraph.Root.AddChild(player);
-
-            // for (var i = 0; i != 6; ++i)
-            // AddAsteroid(sceneGraph);
-            var car1 = CarFactory.CreateUserControlledCar(new UserControlledCarObjectBuilder());
-            var car2 = new SystemControlledCarObjectBuilder()
-                        .SetPosition(new Vector2(_canvas.Width - 200, _canvas.Height - 200))
-                        .Build();
-            car2.SetGetTargetPositionCallback(() => car1.Position);
-
-            sceneGraph.Root.AddChild(car1);
-            sceneGraph.Root.AddChild(car2);
-
-            // var trafficLight = BuildAndAddTrafficLight(sceneGraph);
-            // var trafficLight2 = BuildAndAddTrafficLight(sceneGraph);
-
-            // await Task.Delay(1000);
-            // trafficLight.TrafficLightState = TrafficLightState.Green;
-            // await Task.Delay(3000);
-            // trafficLight2.TrafficLightState = TrafficLightState.Green;
+            BuildAndAddCar(sceneGraph, _sandboxGameFacade.PathFollowerCarObjectBuilder);
 
             var context = await _canvas.CreateCanvas2DAsync();
             var renderService = new RenderService(this, context);
             this.AddService(renderService);
         }
 
-
         private GameObject BuildPlayer()
         {
             var player = new GameObject();
 
-            var spriteSheet = _assetsResolver.Get<SpriteSheet>("assets/sheet.json");
+            var spriteSheet = _sandboxGameFacade.AssetResolver.Get<SpriteSheet>("assets/sheet.json");
             var sprite = spriteSheet.Get("playerShip2_green.png");
 
             var playerTransform = player.Components.Add<TransformComponent>();
@@ -88,21 +67,12 @@ namespace BlazorCanvas.Example11.Game
         }
 
 
-        // private CarObject BuildAndAddCar(SceneGraph sceneGraph)
-        // {
-        //     var car = CarFactory.CreateCar();
-        //     sceneGraph.Root.AddChild(car);
-
-        //     return car;
-        //     // Task.Run(async () =>
-        //     // {
-        //     //     await Task.Delay(500);
-        //     //     car2.State = CarStateEnum.NorthWest;
-        //     //     await Task.Delay(1000);
-        //     //     car2.State = CarStateEnum.Westbound;
-        //     //     return Task.CompletedTask;
-        //     // });
-        // }
+        private CarObject BuildAndAddCar(SceneGraph sceneGraph, BaseCarObjectBuilder carBuilder)
+        {
+            var car = carBuilder.Build();
+            sceneGraph.Root.AddChild(car);
+            return car;
+        }
 
         private TrafficLightObject BuildAndAddTrafficLight(SceneGraph sceneGraph)
         {
@@ -115,7 +85,7 @@ namespace BlazorCanvas.Example11.Game
         {
             var asteroid = new GameObject();
 
-            var spriteSheet = _assetsResolver.Get<SpriteSheet>("assets/sheet.json");
+            var spriteSheet = _sandboxGameFacade.AssetResolver.Get<SpriteSheet>("assets/sheet.json");
             var sprite = spriteSheet.Get("meteorBrown_big1.png");
 
             var transform = asteroid.Components.Add<TransformComponent>();
