@@ -51,7 +51,8 @@ namespace BlazorCanvas.Sandbox.Game.Components
             if (CarState != CarState.Stopped)
             {
                 var carStateAssetPath = _carStateAssetDictionary[CarState];
-                if (_selectedAssetPath != carStateAssetPath)
+                var assetChanged = _selectedAssetPath != carStateAssetPath;
+                if (assetChanged)
                 {
                     _selectedAssetPath = carStateAssetPath;
                     updateCarAsset(game, _selectedAssetPath);
