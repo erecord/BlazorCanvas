@@ -3,37 +3,44 @@ using System.Drawing;
 using System.Numerics;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
-using BlazorCanvas.Example11.Game.Components;
 
-public class MoveableGameObject : GameObject
+namespace BlazorCanvas.Sandbox.Game.Components
 {
-    private TransformComponent _transformComponent => Components.Get<TransformComponent>();
-    private Point _position;
-    public Vector2 Position
+    public class MoveableGameObject : GameObject
     {
-        get => Components.Get<TransformComponent>().World.Position;
-        set => _transformComponent.SetPosition(value);
-
-    }
-    public MoveableGameObject()
-    {
-        Components.Add<TransformComponent>();
-    }
-
-    public void SetPosition(Vector2 newPosition)
-    {
-        var transformComponent = Components.Get<TransformComponent>();
-        transformComponent.SetPosition(newPosition);
-    }
-
-    public void SetGetTargetPositionCallback(Func<Vector2> getTargetPositionCallback)
-    {
-        var travelToTargetComponent = Components.Get<TravelToTargetComponent>();
-        if (travelToTargetComponent != null)
+        private TransformComponent _transformComponent => Components.Get<TransformComponent>();
+        private Point _position;
+        public Vector2 Position
         {
-            travelToTargetComponent.GetTargetPositionFunc = getTargetPositionCallback;
-        }
-    }
+            get => Components.Get<TransformComponent>().World.Position;
+            set => _transformComponent.SetPosition(value);
 
+        }
+        public MoveableGameObject()
+        {
+            Components.Add<TransformComponent>();
+        }
+
+        public void SetPosition(Vector2 newPosition)
+        {
+            var transformComponent = Components.Get<TransformComponent>();
+            transformComponent.SetPosition(newPosition);
+        }
+
+        public Func<Vector2> TargetPositionCallback
+        {
+            get => Components.Get<TravelToTargetComponent>()?.GetTargetPositionFunc;
+            set
+            {
+                var travelToTargetComponent = Components.Get<TravelToTargetComponent>();
+                if (travelToTargetComponent != null)
+                {
+                    travelToTargetComponent.GetTargetPositionFunc = value;
+                }
+            }
+        }
+
+
+    }
 
 }
