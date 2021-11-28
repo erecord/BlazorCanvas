@@ -6,7 +6,7 @@ namespace BlazorCanvas.Sandbox.Game.GameObjects
 {
     public class CarObject : MoveableGameObject
     {
-        public CarStateEnum State { get; set; }
+        public CarState State { get; set; }
 
         private void onTrafficLightStateChanged(object sender, TrafficLightState newTrafficLightState)
         {

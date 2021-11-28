@@ -28,44 +28,44 @@ namespace BlazorCanvas.Sandbox.Game.Components
 
         public override ValueTask Update(GameContext game)
         {
-            if (Parent.State != CarStateEnum.Stopped)
+            if (Parent.State != CarState.Stopped)
             {
 
-                if (Parent.State == CarStateEnum.Northbound)
+                if (Parent.State == CarState.Northbound)
                 {
                     TravelNorth(game);
                 }
-                if (Parent.State == CarStateEnum.Eastbound)
+                if (Parent.State == CarState.Eastbound)
                 {
 
                     TravelEast(game);
                 }
-                if (Parent.State == CarStateEnum.Southbound)
+                if (Parent.State == CarState.Southbound)
                 {
 
                     TravelSouth(game);
                 }
-                if (Parent.State == CarStateEnum.Westbound)
+                if (Parent.State == CarState.Westbound)
                 {
 
                     TravelWest(game);
                 }
-                if (Parent.State == CarStateEnum.NorthEast)
+                if (Parent.State == CarState.NorthEast)
                 {
 
                     TravelNorthEast(game);
                 }
-                if (Parent.State == CarStateEnum.NorthWest)
+                if (Parent.State == CarState.NorthWest)
                 {
 
                     TravelNorthWest(game);
                 }
-                if (Parent.State == CarStateEnum.SouthEast)
+                if (Parent.State == CarState.SouthEast)
                 {
 
                     TravelSouthEast(game);
                 }
-                if (Parent.State == CarStateEnum.SouthWest)
+                if (Parent.State == CarState.SouthWest)
                 {
 
                     TravelSouthWest(game);

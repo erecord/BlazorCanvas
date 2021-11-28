@@ -1,6 +1,6 @@
 namespace BlazorCanvas.Sandbox.Core
 {
-    public enum CarStateEnum
+    public enum CarState
     {
         Northbound,
         Eastbound,
@@ -9,6 +9,7 @@ namespace BlazorCanvas.Sandbox.Core
         Southbound,
         NorthEast,
         SouthEast,
-        SouthWest
+        SouthWest,
+        Stopped
     }
 }

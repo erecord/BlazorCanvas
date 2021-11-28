@@ -50,37 +50,37 @@ namespace BlazorCanvas.Sandbox.Game.Components
             // Handle diagonals
             if (parentIsMoreNorthWestThanTarget)
             {
-                Parent.State = CarStateEnum.SouthEast;
+                Parent.State = CarState.SouthEast;
             }
             else if (parentIsMoreNorthEastThanTarget)
             {
-                Parent.State = CarStateEnum.SouthWest;
+                Parent.State = CarState.SouthWest;
             }
             else if (parentIsMoreSouthWestThanTarget)
             {
-                Parent.State = CarStateEnum.NorthEast;
+                Parent.State = CarState.NorthEast;
             }
             else if (parentIsMoreSouthEastThanTarget)
             {
-                Parent.State = CarStateEnum.NorthWest;
+                Parent.State = CarState.NorthWest;
             }
 
             // Handle straight lines if aligned on the same axis
             if (parentIsMoreNorthThanTarget && parentIsYAlignedWithTarget)
             {
-                Parent.State = CarStateEnum.Southbound;
+                Parent.State = CarState.Southbound;
             }
             else if (parentIsMoreSouthThanTarget && parentIsYAlignedWithTarget)
             {
-                Parent.State = CarStateEnum.Northbound;
+                Parent.State = CarState.Northbound;
             }
             else if (parentIsMoreEastThanTarget && parentIsXAlignedWithTarget)
             {
-                Parent.State = CarStateEnum.Westbound;
+                Parent.State = CarState.Westbound;
             }
             else if (parentIsMoreWestThanTarget && parentIsXAlignedWithTarget)
             {
-                Parent.State = CarStateEnum.Eastbound;
+                Parent.State = CarState.Eastbound;
             }
 
             base.Update(game);
