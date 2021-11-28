@@ -1,18 +1,17 @@
 using System.Numerics;
 using BlazorCanvas.Core.Interfaces;
 using BlazorCanvas.Sandbox.Core;
-using BlazorCanvas.Sandbox.Game.GameObjects;
+using BlazorCanvas.Sandbox.Game.Components;
 
 namespace BlazorCanvas.Sandbox.Game.Strategies
 {
-    public class CarToTargetPositionStrategy : ITravelToTargetPositionStrategy
+    public class MoveableObjectToTargetPositionStrategy : ITravelToTargetPositionStrategy
     {
-        // TODO try refactor by putting a generic direction State in GameObject
-        private readonly CarObject _carObject;
+        private readonly MoveableGameObject _moveableGameObject;
 
-        public CarToTargetPositionStrategy(CarObject carObject)
+        public MoveableObjectToTargetPositionStrategy(MoveableGameObject moveableGameObject)
         {
-            _carObject = carObject;
+            _moveableGameObject = moveableGameObject;
         }
 
         public void TravelToTargetPosition(Vector2 currentPosition, Vector2 targetPosition)
@@ -39,37 +38,37 @@ namespace BlazorCanvas.Sandbox.Game.Strategies
             // Handle diagonals
             if (parentIsMoreNorthWestThanTarget)
             {
-                _carObject.State = CarState.SouthEast;
+                _moveableGameObject.CurrentDirection = DirectionState.SouthEast;
             }
             else if (parentIsMoreNorthEastThanTarget)
             {
-                _carObject.State = CarState.SouthWest;
+                _moveableGameObject.CurrentDirection = DirectionState.SouthWest;
             }
             else if (parentIsMoreSouthWestThanTarget)
             {
-                _carObject.State = CarState.NorthEast;
+                _moveableGameObject.CurrentDirection = DirectionState.NorthEast;
             }
             else if (parentIsMoreSouthEastThanTarget)
             {
-                _carObject.State = CarState.NorthWest;
+                _moveableGameObject.CurrentDirection = DirectionState.NorthWest;
             }
 
             // Handle straight lines if aligned on the same axis
             if (parentIsMoreNorthThanTarget && parentIsYAlignedWithTarget)
             {
-                _carObject.State = CarState.Southbound;
+                _moveableGameObject.CurrentDirection = DirectionState.Southbound;
             }
             else if (parentIsMoreSouthThanTarget && parentIsYAlignedWithTarget)
             {
-                _carObject.State = CarState.Northbound;
+                _moveableGameObject.CurrentDirection = DirectionState.Northbound;
             }
             else if (parentIsMoreEastThanTarget && parentIsXAlignedWithTarget)
             {
-                _carObject.State = CarState.Westbound;
+                _moveableGameObject.CurrentDirection = DirectionState.Westbound;
             }
             else if (parentIsMoreWestThanTarget && parentIsXAlignedWithTarget)
             {
-                _carObject.State = CarState.Eastbound;
+                _moveableGameObject.CurrentDirection = DirectionState.Eastbound;
             }
         }
 

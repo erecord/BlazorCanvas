@@ -60,7 +60,7 @@ namespace BlazorCanvas.Sandbox.Game.Components
             }
             else
             {
-                CarObject.State = CarState.Stopped;
+                CarObject.CurrentDirection = DirectionState.Stopped;
             }
 
             return base.Update(game);

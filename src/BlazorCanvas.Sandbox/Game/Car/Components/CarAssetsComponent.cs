@@ -12,9 +12,9 @@ namespace BlazorCanvas.Sandbox.Game.Components
     {
         private SpriteRenderComponent _spriteRenderComponent;
         private BoundingBoxComponent _spriteBoundingBoxComponent;
-        private Dictionary<CarState, string> _carStateAssetDictionary;
+        private Dictionary<DirectionState, string> _carStateAssetDictionary;
 
-        private CarState CarState => (Owner as CarObject).State;
+        private DirectionState CurrentCarDirection => (Owner as CarObject).CurrentDirection;
         private string _selectedAssetPath;
 
         public CarAssetsComponent(GameObject owner) : base(owner)
@@ -22,16 +22,16 @@ namespace BlazorCanvas.Sandbox.Game.Components
             _spriteRenderComponent = owner.Components.Get<SpriteRenderComponent>();
             _spriteBoundingBoxComponent = owner.Components.Get<BoundingBoxComponent>();
 
-            _carStateAssetDictionary = new Dictionary<CarState, string>()
+            _carStateAssetDictionary = new Dictionary<DirectionState, string>()
             {
-                {CarState.Northbound, "assets/sedanSports_N.png"},
-                {CarState.Southbound, "assets/sedanSports_S.png"},
-                {CarState.Eastbound, "assets/sedanSports_E.png"},
-                {CarState.Westbound, "assets/sedanSports_W.png"},
-                {CarState.NorthEast, "assets/sedanSports_NE.png"},
-                {CarState.NorthWest, "assets/sedanSports_NW.png"},
-                {CarState.SouthEast, "assets/sedanSports_SE.png"},
-                {CarState.SouthWest, "assets/sedanSports_SW.png"},
+                {DirectionState.Northbound, "assets/sedanSports_N.png"},
+                {DirectionState.Southbound, "assets/sedanSports_S.png"},
+                {DirectionState.Eastbound, "assets/sedanSports_E.png"},
+                {DirectionState.Westbound, "assets/sedanSports_W.png"},
+                {DirectionState.NorthEast, "assets/sedanSports_NE.png"},
+                {DirectionState.NorthWest, "assets/sedanSports_NW.png"},
+                {DirectionState.SouthEast, "assets/sedanSports_SE.png"},
+                {DirectionState.SouthWest, "assets/sedanSports_SW.png"},
             };
 
         }
@@ -41,16 +41,16 @@ namespace BlazorCanvas.Sandbox.Game.Components
             base.OnStart(game);
 
             // Set initial asset
-            _selectedAssetPath = _carStateAssetDictionary[CarState.Eastbound];
+            _selectedAssetPath = _carStateAssetDictionary[DirectionState.Eastbound];
             updateCarAsset(game, _selectedAssetPath);
         }
 
         public override ValueTask Update(GameContext game)
         {
 
-            if (CarState != CarState.Stopped)
+            if (CurrentCarDirection != DirectionState.Stopped)
             {
-                var carStateAssetPath = _carStateAssetDictionary[CarState];
+                var carStateAssetPath = _carStateAssetDictionary[CurrentCarDirection];
                 var assetChanged = _selectedAssetPath != carStateAssetPath;
                 if (assetChanged)
                 {

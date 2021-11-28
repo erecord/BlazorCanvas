@@ -8,7 +8,7 @@ namespace BlazorCanvas.Sandbox.Game.Components
 {
     public class CarUserControllerComponent : BaseComponent
     {
-        private CarObject Parent => this.Owner as CarObject;
+        private CarObject Car => this.Owner as CarObject;
 
         public CarUserControllerComponent(GameObject owner) : base(owner)
         {
@@ -23,15 +23,15 @@ namespace BlazorCanvas.Sandbox.Game.Components
             {
                 if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
                 {
-                    Parent.State = CarState.NorthEast;
+                    Car.CurrentDirection = DirectionState.NorthEast;
                 }
                 else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
                 {
-                    Parent.State = CarState.NorthWest;
+                    Car.CurrentDirection = DirectionState.NorthWest;
                 }
                 else
                 {
-                    Parent.State = CarState.Northbound;
+                    Car.CurrentDirection = DirectionState.Northbound;
                 }
             }
 
@@ -40,32 +40,32 @@ namespace BlazorCanvas.Sandbox.Game.Components
                 if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
                 {
 
-                    Parent.State = CarState.SouthEast;
+                    Car.CurrentDirection = DirectionState.SouthEast;
                 }
                 else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
                 {
 
-                    Parent.State = CarState.SouthWest;
+                    Car.CurrentDirection = DirectionState.SouthWest;
                 }
                 else
                 {
 
-                    Parent.State = CarState.Southbound;
+                    Car.CurrentDirection = DirectionState.Southbound;
                 }
             }
 
             else if (inputService.GetKeyState(Keys.Left).State == ButtonState.States.Down)
             {
-                Parent.State = CarState.Westbound;
+                Car.CurrentDirection = DirectionState.Westbound;
             }
 
             else if (inputService.GetKeyState(Keys.Right).State == ButtonState.States.Down)
             {
-                Parent.State = CarState.Eastbound;
+                Car.CurrentDirection = DirectionState.Eastbound;
             }
             else
             {
-                Parent.State = CarState.Stopped;
+                Car.CurrentDirection = DirectionState.Stopped;
             }
 
             return new ValueTask();

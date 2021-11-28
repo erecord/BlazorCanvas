@@ -15,7 +15,7 @@ namespace BlazorCanvas.Sandbox.Game.Builders
             CarObject.Components.Add<SpriteRenderComponent>();
             CarObject.Components.Add<CarAssetsComponent>();
 
-            SetCarState(CarState.Stopped);
+            SetCarState(DirectionState.Stopped);
             SetPosition(new Vector2(100, 200));
         }
 
@@ -28,7 +28,7 @@ namespace BlazorCanvas.Sandbox.Game.Builders
             CarObject.SetPosition(newPosition);
             return this;
         }
-        public void SetCarState(CarState carState) => CarObject.State = carState;
+        public void SetCarState(DirectionState newDirection) => CarObject.CurrentDirection = newDirection;
         public CarObject Build()
         {
             SetBehaviour();

@@ -10,7 +10,7 @@ namespace BlazorCanvas.Sandbox.Game.Components
     {
         private TransformComponent Transform => Parent.Components.Get<TransformComponent>();
         private BoundingBoxComponent BoundingBox => Parent.Components.Get<BoundingBoxComponent>();
-        private CarObject Parent => this.Owner as CarObject;
+        private MoveableGameObject Parent => this.Owner as MoveableGameObject;
 
         public float _speed = 0.4500f;
 
@@ -28,44 +28,44 @@ namespace BlazorCanvas.Sandbox.Game.Components
 
         public override ValueTask Update(GameContext game)
         {
-            if (Parent.State != CarState.Stopped)
+            if (Parent.CurrentDirection != DirectionState.Stopped)
             {
 
-                if (Parent.State == CarState.Northbound)
+                if (Parent.CurrentDirection == DirectionState.Northbound)
                 {
                     TravelNorth(game);
                 }
-                if (Parent.State == CarState.Eastbound)
+                if (Parent.CurrentDirection == DirectionState.Eastbound)
                 {
 
                     TravelEast(game);
                 }
-                if (Parent.State == CarState.Southbound)
+                if (Parent.CurrentDirection == DirectionState.Southbound)
                 {
 
                     TravelSouth(game);
                 }
-                if (Parent.State == CarState.Westbound)
+                if (Parent.CurrentDirection == DirectionState.Westbound)
                 {
 
                     TravelWest(game);
                 }
-                if (Parent.State == CarState.NorthEast)
+                if (Parent.CurrentDirection == DirectionState.NorthEast)
                 {
 
                     TravelNorthEast(game);
                 }
-                if (Parent.State == CarState.NorthWest)
+                if (Parent.CurrentDirection == DirectionState.NorthWest)
                 {
 
                     TravelNorthWest(game);
                 }
-                if (Parent.State == CarState.SouthEast)
+                if (Parent.CurrentDirection == DirectionState.SouthEast)
                 {
 
                     TravelSouthEast(game);
                 }
-                if (Parent.State == CarState.SouthWest)
+                if (Parent.CurrentDirection == DirectionState.SouthWest)
                 {
 
                     TravelSouthWest(game);

@@ -11,7 +11,7 @@ namespace BlazorCanvas.Sandbox.Game.Builders
         public override void SetBehaviour()
         {
             CarObject.Components.Add<TravelToTargetPositionComponent>();
-            _travelToTargetComponent.TravelToTargetPositionStrategy = new CarToTargetPositionStrategy(CarObject);
+            _travelToTargetComponent.TravelToTargetPositionStrategy = new MoveableObjectToTargetPositionStrategy(CarObject);
         }
 
     }

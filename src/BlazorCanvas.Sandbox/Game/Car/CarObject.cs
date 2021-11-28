@@ -6,8 +6,6 @@ namespace BlazorCanvas.Sandbox.Game.GameObjects
 {
     public class CarObject : MoveableGameObject
     {
-        public CarState State { get; set; }
-
         private void onTrafficLightStateChanged(object sender, TrafficLightState newTrafficLightState)
         {
             if (newTrafficLightState == TrafficLightState.Green)
