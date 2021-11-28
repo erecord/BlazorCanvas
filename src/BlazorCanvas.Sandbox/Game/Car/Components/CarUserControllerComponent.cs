@@ -63,6 +63,10 @@ namespace BlazorCanvas.Sandbox.Game.Components
             {
                 Parent.State = CarState.Eastbound;
             }
+            else
+            {
+                Parent.State = CarState.Stopped;
+            }
 
             return new ValueTask();
         }
