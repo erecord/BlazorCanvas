@@ -1,8 +1,11 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BlazorCanvas.Core;
 using BlazorCanvas.Core.Assets;
 using BlazorCanvas.Core.Assets.Loaders;
+using BlazorCanvas.Sandbox.Game;
+using BlazorCanvas.Sandbox.Game.Builders;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +19,7 @@ namespace BlazorCanvas.Example11
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddSingleton<IAssetsResolver, AssetsResolver>();
+            builder.Services.AddSingleton<IAssetResolver, AssetResolver>();
             builder.Services.AddSingleton<IAssetLoader<Sprite>, SpriteAssetLoader>();
             builder.Services.AddSingleton<IAssetLoader<SpriteSheet>, SpriteSheetAssetLoader>();
             builder.Services.AddSingleton<IAssetLoaderFactory>(ctx =>
@@ -28,6 +31,11 @@ namespace BlazorCanvas.Example11
 
                 return factory;
             });
+
+
+            builder.Services.AddSingleton<InputService>();
+            builder.Services.AddTransient<PathFollowerCarObjectBuilder>();
+            builder.Services.AddTransient<SandboxGameFacade>();
 
             await builder.Build().RunAsync();
         }
