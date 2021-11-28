@@ -8,6 +8,7 @@ using BlazorCanvas.Example11.Game.Components;
 using BlazorCanvas.Core.Utils;
 using BlazorCanvas.Sandbox.Game.GameObjects;
 using BlazorCanvas.Sandbox.Game.Builders;
+using System.Numerics;
 
 namespace BlazorCanvas.Sandbox.Game
 {
@@ -34,6 +35,7 @@ namespace BlazorCanvas.Sandbox.Game
             this.AddService(sceneGraph);
 
             BuildAndAddCar(sceneGraph, _sandboxGameFacade.PathFollowerCarObjectBuilder);
+            BuildAndAddCar(sceneGraph, _sandboxGameFacade.UserControlledCarObjectBuilder).SetPosition(new Vector2(800, 600));
 
             var context = await _canvas.CreateCanvas2DAsync();
             var renderService = new RenderService(this, context);

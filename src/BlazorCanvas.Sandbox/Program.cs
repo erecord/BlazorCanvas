@@ -35,6 +35,7 @@ namespace BlazorCanvas.Sandbox
 
             builder.Services.AddSingleton<InputService>();
             builder.Services.AddTransient<PathFollowerCarObjectBuilder>();
+            builder.Services.AddTransient<UserControlledCarObjectBuilder>();
             builder.Services.AddTransient<SandboxGameFacade>();
 
             await builder.Build().RunAsync();
