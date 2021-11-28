@@ -1,35 +1,38 @@
-using System.Drawing;
 using System.Numerics;
 using BlazorCanvas.Core.Components;
-using BlazorCanvas.Example11.Game.Components;
 using BlazorCanvas.Sandbox.Core;
+using BlazorCanvas.Sandbox.Game.Components;
+using BlazorCanvas.Sandbox.Game.GameObjects;
 
-public abstract class BaseCarObjectBuilder
+namespace BlazorCanvas.Sandbox.Game.Builders
 {
-    protected CarObject CarObject = new CarObject();
-    public BaseCarObjectBuilder()
+    public abstract class BaseCarObjectBuilder
     {
-        CarObject.Components.Add<BoundingBoxComponent>();
-        CarObject.Components.Add<SpriteRenderComponent>();
-        CarObject.Components.Add<CarAssetsComponent>();
+        protected CarObject CarObject = new CarObject();
+        public BaseCarObjectBuilder()
+        {
+            CarObject.Components.Add<BoundingBoxComponent>();
+            CarObject.Components.Add<SpriteRenderComponent>();
+            CarObject.Components.Add<CarAssetsComponent>();
 
-        SetCarState(CarStateEnum.Eastbound);
-        SetPosition(new Vector2(100, 200));
-    }
+            SetCarState(CarStateEnum.Stopped);
+            SetPosition(new Vector2(100, 200));
+        }
 
-    public virtual void SetBehaviour()
-    {
-        CarObject.Components.Add<BaseMoveComponent>();
-    }
-    public BaseCarObjectBuilder SetPosition(Vector2 newPosition)
-    {
-        CarObject.SetPosition(newPosition);
-        return this;
-    }
-    public void SetCarState(CarStateEnum carState) => CarObject.State = carState;
-    public CarObject Build()
-    {
-        SetBehaviour();
-        return CarObject;
+        public virtual void SetBehaviour()
+        {
+            CarObject.Components.Add<BaseMoveComponent>();
+        }
+        public BaseCarObjectBuilder SetPosition(Vector2 newPosition)
+        {
+            CarObject.SetPosition(newPosition);
+            return this;
+        }
+        public void SetCarState(CarStateEnum carState) => CarObject.State = carState;
+        public CarObject Build()
+        {
+            SetBehaviour();
+            return CarObject;
+        }
     }
 }

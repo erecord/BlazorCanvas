@@ -1,20 +1,16 @@
-using System;
-using System.Drawing;
-using System.Numerics;
-using BlazorCanvas.Example11.Game.Components;
-using BlazorCanvas.Sandbox.Core;
+using BlazorCanvas.Sandbox.Game.Components;
 
-public class SystemControlledCarObjectBuilder : BaseCarObjectBuilder
+namespace BlazorCanvas.Sandbox.Game.Builders
 {
-    public TravelToTargetComponent _travelToTargetComponent => CarObject.Components.Get<TravelToTargetComponent>();
-    public SystemControlledCarObjectBuilder()
+    public class SystemControlledCarObjectBuilder : BaseCarObjectBuilder
     {
-        SetCarState(CarStateEnum.Westbound);
+        protected TravelToTargetComponent _travelToTargetComponent => CarObject.Components.Get<TravelToTargetComponent>();
+        public SystemControlledCarObjectBuilder()
+        {
+        }
+        public override void SetBehaviour()
+        {
+            CarObject.Components.Add<TravelToTargetComponent>();
+        }
     }
-    public override void SetBehaviour()
-    {
-        CarObject.Components.Add<TravelToTargetComponent>();
-    }
-
-
 }

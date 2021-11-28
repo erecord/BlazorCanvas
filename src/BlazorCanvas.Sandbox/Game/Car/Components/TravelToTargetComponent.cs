@@ -1,12 +1,12 @@
 using System;
-using System.Drawing;
 using System.Numerics;
 using System.Threading.Tasks;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Sandbox.Core;
+using BlazorCanvas.Sandbox.Game.GameObjects;
 
-namespace BlazorCanvas.Example11.Game.Components
+namespace BlazorCanvas.Sandbox.Game.Components
 {
 
     public class TravelToTargetComponent : BaseMoveComponent

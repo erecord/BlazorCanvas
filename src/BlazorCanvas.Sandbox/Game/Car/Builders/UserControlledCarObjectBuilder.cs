@@ -1,10 +1,13 @@
-using BlazorCanvas.Example11.Game.Components;
+using BlazorCanvas.Sandbox.Game.Components;
 
-public class UserControlledCarObjectBuilder : BaseCarObjectBuilder
+namespace BlazorCanvas.Sandbox.Game.Builders
 {
-    public override void SetBehaviour()
+    public class UserControlledCarObjectBuilder : BaseCarObjectBuilder
     {
-        base.SetBehaviour();
-        CarObject.Components.Add<CarUserControllerComponent>();
+        public override void SetBehaviour()
+        {
+            base.SetBehaviour();
+            CarObject.Components.Add<CarUserControllerComponent>();
+        }
     }
 }

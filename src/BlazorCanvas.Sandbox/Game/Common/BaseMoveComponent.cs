@@ -1,10 +1,10 @@
-using System;
 using System.Threading.Tasks;
 using BlazorCanvas.Core;
 using BlazorCanvas.Core.Components;
 using BlazorCanvas.Sandbox.Core;
+using BlazorCanvas.Sandbox.Game.GameObjects;
 
-namespace BlazorCanvas.Example11.Game.Components
+namespace BlazorCanvas.Sandbox.Game.Components
 {
     public class BaseMoveComponent : BaseComponent
     {
@@ -28,7 +28,7 @@ namespace BlazorCanvas.Example11.Game.Components
 
         public override ValueTask Update(GameContext game)
         {
-            if (!Parent.Stopped)
+            if (Parent.State != CarStateEnum.Stopped)
             {
 
                 if (Parent.State == CarStateEnum.Northbound)
